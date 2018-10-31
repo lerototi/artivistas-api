@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.artivistas.event.ResourceCreatedEvent;
 import com.artivistas.model.User;
 import com.artivistas.repository.UserRepository;
 
@@ -25,6 +28,10 @@ public class UserResources {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	
+	@Autowired
+	private ApplicationEventPublisher publisher; //disparar evento spring (publicador)
 	
 	@GetMapping
 	public ResponseEntity<?> listAll(){
@@ -36,11 +43,9 @@ public class UserResources {
 	public ResponseEntity<User> saveUser(@RequestBody @Valid User user, HttpServletResponse response){
 		User userSaved = userRepository.save(user);
 		
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
-				.buildAndExpand(userSaved.getIdUser()).toUri();
-		response.setHeader("Location", uri.toASCIIString());
+		publisher.publishEvent(new ResourceCreatedEvent(this, response, user.getIdUser()));
 		
-		return ResponseEntity.created(uri).body(userSaved);
+		return ResponseEntity.status(HttpStatus.CREATED).body(userSaved);
 	}
 	
 	@GetMapping("/{id}")

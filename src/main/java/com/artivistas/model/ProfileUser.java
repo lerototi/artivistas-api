@@ -21,7 +21,7 @@ public class ProfileUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Integer idProfile;
+	private Long idProfile;
 
 	@Column(name = "name", nullable = false, length = 50)
 	private String name;
@@ -81,11 +81,11 @@ public class ProfileUser {
 		this.user = user;
 	}
 
-	public Integer getIdProfile() {
+	public Long getIdProfile() {
 		return idProfile;
 	}
 
-	public void setIdProfile(Integer idProfile) {
+	public void setIdProfile(Long idProfile) {
 		this.idProfile = idProfile;
 	}
 
