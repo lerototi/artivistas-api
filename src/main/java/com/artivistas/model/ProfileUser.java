@@ -21,7 +21,7 @@ public class ProfileUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Long idProfile;
+	private Long id;
 
 	@Column(name = "name", nullable = false, length = 50)
 	private String name;
@@ -81,14 +81,6 @@ public class ProfileUser {
 		this.user = user;
 	}
 
-	public Long getIdProfile() {
-		return idProfile;
-	}
-
-	public void setIdProfile(Long idProfile) {
-		this.idProfile = idProfile;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -141,7 +133,7 @@ public class ProfileUser {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((idProfile == null) ? 0 : idProfile.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -154,14 +146,14 @@ public class ProfileUser {
 		if (getClass() != obj.getClass())
 			return false;
 		ProfileUser other = (ProfileUser) obj;
-		if (idProfile == null) {
-			if (other.idProfile != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!idProfile.equals(other.idProfile))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
-	
+
 
 	
 }
