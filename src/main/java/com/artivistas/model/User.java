@@ -8,13 +8,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "user")
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
 
 	@Id
@@ -22,13 +22,19 @@ public class User {
 	@Column(name = "id")
 	private Long idUser;
 	
+	
 	@Column(name = "mail", nullable = false, length = 50, unique=true)
+	@NotNull
+	@Size(min=3, max = 50)
 	private String mail;
-	@Column(name="cellphone", nullable =  false, length = 17)
-	private String cellphone;
-	@Column(name = "password", nullable = false, length = 150)
+	
+	@Column(name = "password", nullable = false)
+	@NotNull
+	@Size(min=6, max = 30)
 	private String password;
+	
 	@Column(name = "enabled", nullable = false)
+	@NotNull
 	private boolean enabled;
 
 	
@@ -55,12 +61,7 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getCellphone() {
-		return cellphone;
-	}
-	public void setCellphone(String cellphone) {
-		this.cellphone = cellphone;
-	}
+
 	public ProfileUser getPflUser() {
 		return pflUser;
 	}

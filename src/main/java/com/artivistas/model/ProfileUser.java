@@ -20,7 +20,7 @@ public class ProfileUser {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_profile")
+	@Column(name = "id")
 	private Integer idProfile;
 
 	@Column(name = "name", nullable = false, length = 50)
@@ -28,12 +28,15 @@ public class ProfileUser {
 
 	@Column(name = "surname", nullable = false, length = 50)
 	private String surname;
+	
+	@Column
+	private String cellphone;
 
 	// TODO carregar imagem
 	// @Column(name="image", nullable = true)
 	// private String Image;
 
-	@Column(name = "description", nullable = true, length = 500)
+	@Column(name = "description", nullable = true, length = 300)
 	private String description;
 
 	@Column(name = "facebook", nullable = true, length = 50)
@@ -42,10 +45,10 @@ public class ProfileUser {
 	@Column(name = "instagram", nullable = true, length = 50)
 	private String instagram;
 
-	@Column(name = "date_brithday", nullable = true)
+	@Column(name = "brithday", nullable = true)
 	private Date dateOfBrithday;
 
-	@Column(name = "date_creation", nullable = false)
+	@Column(name = "date_profile", nullable = false)
 	private Date dateOfCreationProfile;
 	
 	@OneToOne(fetch = FetchType.LAZY)
@@ -60,6 +63,14 @@ public class ProfileUser {
 
 	public void setSurname(String surname) {
 		this.surname = surname;
+	}
+
+	public String getCellphone() {
+		return cellphone;
+	}
+
+	public void setCellphone(String cellphone) {
+		this.cellphone = cellphone;
 	}
 
 	public User getUser() {
