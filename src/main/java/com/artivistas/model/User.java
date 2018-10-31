@@ -20,7 +20,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Long idUser;
+	private Long id;
 	
 	
 	@Column(name = "mail", nullable = false, length = 50, unique=true)
@@ -43,11 +43,11 @@ public class User {
 	private ProfileUser pflUser;
 	
 
-	public Long getIdUser() {
-		return idUser;
+	public Long getId() {
+		return id;
 	}
-	public void setIdUser(Long idUser) {
-		this.idUser = idUser;
+	public void setId(Long id) {
+		this.id = id;
 	}
 	public String getMail() {
 		return mail;
@@ -75,12 +75,11 @@ public class User {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((idUser == null) ? 0 : idUser.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 	@Override
@@ -92,17 +91,13 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (idUser == null) {
-			if (other.idUser != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!idUser.equals(other.idUser))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
-	
-	
-	
-
 	
 	
 }

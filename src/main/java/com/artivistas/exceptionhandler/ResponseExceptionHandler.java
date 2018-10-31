@@ -29,7 +29,7 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		
 		String messageUser = messageSource.getMessage("mensagem.invalida", null, LocaleContextHolder.getLocale());
-		String messageDevelopment = ex.getCause().toString();
+		String messageDevelopment = ex.getCause() != null ? ex.getCause().toString() : ex.toString();
 		List<Erro> erros = Arrays.asList(new Erro(messageUser, messageDevelopment));
 		return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
 	}
