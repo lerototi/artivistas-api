@@ -1,11 +1,14 @@
 package com.artivistas.model;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -42,6 +45,9 @@ public class User {
 	@JsonManagedReference
 	private ProfileUser pflUser;
 	
+	@OneToMany(mappedBy="user")
+	private List<ProfileGroup> profileGroups;
+	
 
 	public Long getId() {
 		return id;
@@ -74,6 +80,13 @@ public class User {
 	}
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+	
+	public List<ProfileGroup> getProfileGroups() {
+		return profileGroups;
+	}
+	public void setProfileGroups(List<ProfileGroup> profileGroups) {
+		this.profileGroups = profileGroups;
 	}
 	@Override
 	public int hashCode() {

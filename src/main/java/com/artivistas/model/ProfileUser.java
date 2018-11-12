@@ -55,6 +55,9 @@ public class ProfileUser {
 	@JoinColumn(name = "fk_user")
 	@JsonBackReference
 	private User user;
+	
+	@OneToOne
+	private Member member;
 
 
 	public String getSurname() {

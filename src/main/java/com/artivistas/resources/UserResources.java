@@ -2,7 +2,6 @@ package com.artivistas.resources;
 
 import java.util.List;
 
-import javax.servlet.annotation.HttpMethodConstraint;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
