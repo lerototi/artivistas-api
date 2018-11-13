@@ -51,17 +51,19 @@ public class ProfileGroup {
 	private City city;
 	
 	@OneToMany(mappedBy="profileGroup", cascade = CascadeType.ALL)
+	@JsonBackReference
 	private List<Member> members;
 	
 	@OneToMany(mappedBy="profileGroup", cascade = CascadeType.ALL)
+	@JsonBackReference
 	private List<Front> fronts;
 	
 	@OneToMany(mappedBy="profileGroup", cascade =CascadeType.ALL)
+	@JsonBackReference
 	private List<Social> socials;
 	
 	@ManyToOne
 	@JoinColumn(name="fk_user")
-	@JsonIgnore
 	private User user;
 
 	public Long getId() {

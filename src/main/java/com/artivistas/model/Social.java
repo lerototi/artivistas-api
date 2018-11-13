@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Social {
 
@@ -24,6 +26,7 @@ public class Social {
 	
 	@ManyToOne
 	@JoinColumn(name="fk_profile_group")
+	@JsonManagedReference
 	private ProfileGroup profileGroup;
 	
 	@NotNull

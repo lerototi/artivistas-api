@@ -14,6 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Member {
 	
@@ -28,6 +30,7 @@ public class Member {
 	
 	@ManyToOne
 	@JoinColumn(name="fk_profile_group")
+	@JsonManagedReference
 	private ProfileGroup profileGroup;
 	
 	@ManyToMany

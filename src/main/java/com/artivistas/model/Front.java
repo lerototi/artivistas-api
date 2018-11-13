@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Front {
 
@@ -22,6 +24,7 @@ public class Front {
 	
 	@ManyToOne
 	@JoinColumn(name="fk_profile_group")
+	@JsonManagedReference
 	private ProfileGroup profileGroup;
 	
 	@ManyToMany(mappedBy="fronts")

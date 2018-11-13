@@ -20,8 +20,6 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "user")
@@ -52,6 +50,7 @@ public class User {
 	private ProfileUser pflUser;
 	
 	@OneToMany(mappedBy="user")
+	@JsonBackReference
 	private List<ProfileGroup> profileGroups;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
