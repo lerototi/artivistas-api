@@ -18,6 +18,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -46,15 +49,14 @@ public class User {
 
 	
 	@OneToOne(mappedBy="user",cascade = CascadeType.ALL)
-	@JsonManagedReference
 	private ProfileUser pflUser;
 	
 	@OneToMany(mappedBy="user")
 	private List<ProfileGroup> profileGroups;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name ="user_auth", joinColumns= @JoinColumn(name="fk_user"),
-	inverseJoinColumns=@JoinColumn(name="fk_auth"))
+	@JoinTable(name ="authority_user", joinColumns= @JoinColumn(name="fk_user"),
+	inverseJoinColumns=@JoinColumn(name="fk_authority"))
 	private List<Authority> authority;
 	
 

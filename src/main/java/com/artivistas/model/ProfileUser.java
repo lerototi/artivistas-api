@@ -56,9 +56,6 @@ public class ProfileUser {
 	@JsonBackReference
 	private User user;
 	
-	@OneToOne
-	private Member member;
-
 
 	public String getSurname() {
 		return surname;

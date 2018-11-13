@@ -3,6 +3,7 @@ package com.artivistas.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,11 +19,12 @@ public class Member {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
 	private Long id;
 	
 	@OneToOne
-	@JoinColumn(name="fk_profile_user")
-	private ProfileUser profileUser;
+	@JoinColumn(name="fk_user")
+	private User user;
 	
 	@ManyToOne
 	@JoinColumn(name="fk_profile_group")
@@ -36,7 +38,8 @@ public class Member {
 	
 	private LocalDate admission;
 	
-	private boolean memberActive;
+	@Column(name="current_member")
+	private boolean currentMember;
 
 	public Long getId() {
 		return id;
@@ -46,12 +49,13 @@ public class Member {
 		this.id = id;
 	}
 
-	public ProfileUser getProfileUser() {
-		return profileUser;
+
+	public User getUser() {
+		return user;
 	}
 
-	public void setProfileUser(ProfileUser profileUser) {
-		this.profileUser = profileUser;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public LocalDate getAdmission() {
@@ -70,12 +74,20 @@ public class Member {
 		this.fronts = fronts;
 	}
 
-	public boolean isMemberActive() {
-		return memberActive;
+	public ProfileGroup getProfileGroup() {
+		return profileGroup;
 	}
 
-	public void setMemberActive(boolean memberActive) {
-		this.memberActive = memberActive;
+	public void setProfileGroup(ProfileGroup profileGroup) {
+		this.profileGroup = profileGroup;
+	}
+
+	public boolean isCurrentMember() {
+		return currentMember;
+	}
+
+	public void setCurrentMember(boolean currentMember) {
+		this.currentMember = currentMember;
 	}
 
 	@Override

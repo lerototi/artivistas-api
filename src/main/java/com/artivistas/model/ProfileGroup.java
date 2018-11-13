@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,12 +17,17 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="profile_group")
 public class ProfileGroup {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id")
 	private Long id;
 	
 	@NotNull
@@ -35,23 +41,27 @@ public class ProfileGroup {
 	private LocalDate founded;
 	
 	@NotNull
-	private LocalDate registre;
+	private LocalDate registered;
+	
+	@NotNull
+	private boolean active;
 	
 	@OneToOne
 	@JoinColumn(name = "fk_city")
 	private City city;
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="profileGroup", cascade = CascadeType.ALL)
 	private List<Member> members;
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="profileGroup", cascade = CascadeType.ALL)
 	private List<Front> fronts;
 	
-	@OneToMany(cascade =CascadeType.ALL)
+	@OneToMany(mappedBy="profileGroup", cascade =CascadeType.ALL)
 	private List<Social> socials;
 	
 	@ManyToOne
 	@JoinColumn(name="fk_user")
+	@JsonIgnore
 	private User user;
 
 	public Long getId() {
@@ -78,6 +88,38 @@ public class ProfileGroup {
 		this.description = description;
 	}
 
+	
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public List<Member> getMembers() {
+		return members;
+	}
+
+	public void setMembers(List<Member> members) {
+		this.members = members;
+	}
+
+	public List<Front> getFronts() {
+		return fronts;
+	}
+
+	public void setFronts(List<Front> fronts) {
+		this.fronts = fronts;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public LocalDate getFounded() {
 		return founded;
@@ -87,12 +129,13 @@ public class ProfileGroup {
 		this.founded = founded;
 	}
 
-	public LocalDate getRegistre() {
-		return registre;
+
+	public LocalDate getRegistered() {
+		return registered;
 	}
 
-	public void setRegistre(LocalDate registre) {
-		this.registre = registre;
+	public void setRegistered(LocalDate registered) {
+		this.registered = registered;
 	}
 
 	public City getCity() {

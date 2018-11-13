@@ -47,4 +47,8 @@ public class ProfileResources {
 		
 		return ResponseEntity.ok(profileUserReturned);
 	}
+	
+	
+	
+	
 }

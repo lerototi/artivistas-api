@@ -1,17 +1,21 @@
-CREATE TABLE social(
-	id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
-	name VARCHAR(20) NOT NULL,
-	link VARCHAR(100) NOT NULL,
-	fk_profile_group BIGINT(20) NOT NULL
-)ENGINE InnoDB DEFAULT CHARSET=utf8;
-
 CREATE TABLE profile_group(
 	id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
 	name VARCHAR(60) NOT NULL,
 	description VARCHAR(500),
 	founded DATETIME NOT NULL,
 	registered TIMESTAMP NOT NULL,
-	fk_city INT(10)
+	active BOOLEAN NOT NULL,
+	fk_city INT(10),
+	fk_user BIGINT(20) NOT NULL,
+	CONSTRAINT fk_user_profile_group FOREIGN KEY (fk_user) REFERENCES user (id)
+)ENGINE InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE social(
+	id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(20) NOT NULL,
+	link VARCHAR(100) NOT NULL,
+	fk_profile_group BIGINT(20) NOT NULL,
+	CONSTRAINT fk_profile_group_social FOREIGN KEY (fk_profile_group) REFERENCES profile_group (id)
 )ENGINE InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE country(
@@ -24,17 +28,12 @@ CREATE TABLE country(
 CREATE TABLE city(
 	id INT(10) PRIMARY KEY AUTO_INCREMENT,
 	name VARCHAR(20) NOT NULL,
-	fk_country INT(6)
+	fk_country INT(6) NOT NULL,
+	CONSTRAINT fk_country_city FOREIGN KEY (fk_country) REFERENCES country (id)
 )ENGINE InnoDB DEFAULT CHARSET=utf8;
 
-ALTER TABLE social
-	ADD CONSTRAINT fk_profile_group FOREIGN KEY (fk_profile_group) REFERENCES profile_group (id);
-	
 ALTER TABLE profile_group
-	ADD CONSTRAINT fk_city FOREIGN KEY (fk_city) REFERENCES city (id);
-	
-ALTER TABLE city
-	ADD CONSTRAINT fk_country FOREIGN KEY (fk_country) REFERENCES country (id);
+ 	ADD CONSTRAINT fk_city_profile_group FOREIGN KEY (fk_city) REFERENCES city (id);
 	
 
 INSERT INTO country (name, code, code3) values('Brasil','BL','BRL' );
@@ -66,9 +65,12 @@ INSERT INTO city (name, fk_country) values('Sergipe',1);
 INSERT INTO city (name, fk_country) values('Tocantins',1);
 
 
-INSERT INTO profile_group (name, description, founded, registered, fk_city) VALUES('Calango Careta', 'Cadê? cadê? Nós somos a Orquestra Camaleônica do Calango Careta!!!!!!!!', '2015-04-12 00:00:00' ,SYSDATE(), 7);
-INSERT INTO profile_group (name, description, founded, registered, fk_city) VALUES('Tropicaos', '', '2018-01-20 00:00:00' ,SYSDATE() + 1, 7);
-INSERT INTO profile_group (name, description, founded, registered, fk_city) VALUES('Capivara Brass Band', '', '2016-08-24 00:00:00' ,SYSDATE() + 2, 7);
+INSERT INTO profile_group (name, description, founded, registered, active, fk_city, fk_user) 
+	VALUES('Calango Careta', 'Cadê? cadê? Nós somos a Orquestra Camaleônica do Calango Careta!!!!!!!!', '2015-04-12 00:00:00' ,SYSDATE(), true ,7,3);
+INSERT INTO profile_group (name, description, founded, registered, active ,fk_city, fk_user) 
+	VALUES('Tropicaos', '', '2018-01-20 00:00:00' ,SYSDATE() + 1, true ,7,1);
+INSERT INTO profile_group (name, description, founded, registered, active, fk_city, fk_user) 
+	VALUES('Capivara Brass Band', '', '2016-08-24 00:00:00' ,SYSDATE() + 2, false,7,2);
 
 
 

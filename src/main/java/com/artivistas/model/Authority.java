@@ -1,5 +1,6 @@
 package com.artivistas.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -7,7 +8,8 @@ import javax.persistence.Id;
 public class Authority {
 
 	@Id
-	private Long id;;
+	@Column(name="id")
+	private Long id;
 	
 	private String name;
 
