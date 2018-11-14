@@ -33,7 +33,6 @@ public class Front {
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -52,14 +51,6 @@ public class Front {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public ProfileGroup getProfileGroup() {
-		return profileGroup;
-	}
-
-	public void setProfileGroup(ProfileGroup profileGroup) {
-		this.profileGroup = profileGroup;
 	}
 
 	public List<Member> getMembers() {
