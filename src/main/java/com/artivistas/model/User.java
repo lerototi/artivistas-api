@@ -20,6 +20,7 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "user")
@@ -46,11 +47,11 @@ public class User {
 	private boolean enabled;
 
 	
-	@OneToOne(mappedBy="user",cascade = CascadeType.ALL)
+	@OneToOne(mappedBy="user",cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	private ProfileUser pflUser;
 	
-	@OneToMany(mappedBy="user")
-	@JsonBackReference
+	@OneToMany(mappedBy="userCreator")
+	@JsonIgnore
 	private List<ProfileGroup> profileGroups;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -120,6 +121,12 @@ public class User {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+	public List<Authority> getAuthority() {
+		return authority;
+	}
+	public void setAuthority(List<Authority> authority) {
+		this.authority = authority;
 	}
 	
 	

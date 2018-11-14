@@ -18,7 +18,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -46,25 +45,26 @@ public class ProfileGroup {
 	@NotNull
 	private boolean active;
 	
-	@OneToOne
+	/*@OneToOne
 	@JoinColumn(name = "fk_city")
 	private City city;
 	
-	@OneToMany(mappedBy="profileGroup", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="profileGroup", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@JsonBackReference
 	private List<Member> members;
 	
-	@OneToMany(mappedBy="profileGroup", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="profileGroup", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@JsonBackReference
 	private List<Front> fronts;
 	
-	@OneToMany(mappedBy="profileGroup", cascade =CascadeType.ALL)
+	@OneToMany(mappedBy="profileGroup", cascade =CascadeType.ALL, fetch=FetchType.LAZY)
 	@JsonBackReference
-	private List<Social> socials;
+	private List<Social> socials;*/
 	
-	@ManyToOne
-	@JoinColumn(name="fk_user")
-	private User user;
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="fk_user_creator")
+	
+	private User userCreator;
 
 	public Long getId() {
 		return id;
@@ -90,7 +90,6 @@ public class ProfileGroup {
 		this.description = description;
 	}
 
-	
 	public boolean isActive() {
 		return active;
 	}
@@ -99,28 +98,12 @@ public class ProfileGroup {
 		this.active = active;
 	}
 
-	public List<Member> getMembers() {
-		return members;
+	public User getUserCreator() {
+		return userCreator;
 	}
 
-	public void setMembers(List<Member> members) {
-		this.members = members;
-	}
-
-	public List<Front> getFronts() {
-		return fronts;
-	}
-
-	public void setFronts(List<Front> fronts) {
-		this.fronts = fronts;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserCreator(User userCreator) {
+		this.userCreator = userCreator;
 	}
 
 	public LocalDate getFounded() {
@@ -140,22 +123,6 @@ public class ProfileGroup {
 		this.registered = registered;
 	}
 
-	public City getCity() {
-		return city;
-	}
-
-	public void setCity(City city) {
-		this.city = city;
-	}
-
-
-	public List<Social> getSocials() {
-		return socials;
-	}
-
-	public void setSocials(List<Social> socials) {
-		this.socials = socials;
-	}
 
 	@Override
 	public int hashCode() {
