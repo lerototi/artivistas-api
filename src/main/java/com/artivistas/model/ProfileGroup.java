@@ -52,14 +52,15 @@ public class ProfileGroup {
 	@OneToMany(mappedBy="profileGroup", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@JsonBackReference
 	private List<Member> members;
+	*/
 	
 	@OneToMany(mappedBy="profileGroup", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@JsonBackReference
 	private List<Front> fronts;
 	
+	
 	@OneToMany(mappedBy="profileGroup", cascade =CascadeType.ALL, fetch=FetchType.LAZY)
-	@JsonBackReference
-	private List<Social> socials;*/
+	private List<Social> socials;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="fk_user_creator")
@@ -130,6 +131,14 @@ public class ProfileGroup {
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
+	}
+
+	public List<Social> getSocials() {
+		return socials;
+	}
+
+	public void setSocials(List<Social> socials) {
+		this.socials = socials;
 	}
 
 	@Override

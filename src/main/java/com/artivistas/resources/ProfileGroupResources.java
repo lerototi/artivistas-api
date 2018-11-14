@@ -2,7 +2,6 @@ package com.artivistas.resources;
 
 import java.util.List;
 
-import javax.jws.soap.SOAPBinding.Use;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -45,7 +44,7 @@ public class ProfileGroupResources {
 	}
 	
 	@PostMapping
-	public ResponseEntity<ProfileGroup> save(@RequestBody @Valid ProfileGroup profileGroup, HttpServletResponse response){
+	public ResponseEntity<ProfileGroup> save(@RequestBody ProfileGroup profileGroup, HttpServletResponse response){
 		
 		ProfileGroup profileGroupReturned = profileGroupRepository.save(profileGroup);
 		
