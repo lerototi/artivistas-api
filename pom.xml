@@ -10,7 +10,7 @@
 	<packaging>war</packaging>
 
 	<name>artivistas-api</name>
-	<description>Programa financeiro</description>
+	<description>Artivistas</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
