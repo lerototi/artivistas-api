@@ -2,5 +2,5 @@ package com.artivistas.model;
 
 public enum SocialName {
 
-	INSTAGRAM, FACEBOOK, YOUTUBE, OUTRO
+	INSTAGRAM, FACEBOOK, YOUTUBE, EMAIL, OUTRO
 }

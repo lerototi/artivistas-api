@@ -54,15 +54,23 @@ public class SocialResources {
 		return ResponseEntity.ok(SocialReturned);
 	}
 	
-	@GetMapping("/{idProfileGroup}")
-	public ResponseEntity<?> socialsProfileGroup(@PathVariable Long idProfileGroup){
+	@GetMapping("/profile-group/{id}")
+	public ResponseEntity<?> socialsProfileGroup(@PathVariable Long id){
 		
 		ProfileGroup profileGroup = new ProfileGroup();
-		profileGroup.setId(idProfileGroup);
+		profileGroup.setId(id);
 		
 		List<Social> socialsReturned = socialRepository.findByProfileGroup(profileGroup);
 		return !socialsReturned.isEmpty() ? ResponseEntity.ok(socialsReturned) : ResponseEntity.noContent().build();
 	}
+	
+	@GetMapping
+	public ResponseEntity<?> listAll(){
+		List<Social> socials = socialRepository.findAll();
+		
+		return !socials.isEmpty() ? ResponseEntity.ok(socials) : ResponseEntity.noContent().build();
+	}
+	
 	
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)

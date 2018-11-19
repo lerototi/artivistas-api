@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -45,21 +46,21 @@ public class ProfileGroup {
 	@NotNull
 	private boolean active;
 	
-	/*@OneToOne
+	@OneToOne
 	@JoinColumn(name = "fk_city")
 	private City city;
+	
 	
 	@OneToMany(mappedBy="profileGroup", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@JsonBackReference
 	private List<Member> members;
-	*/
+	
 	
 	@OneToMany(mappedBy="profileGroup", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@JsonBackReference
 	private List<Front> fronts;
 	
-	
-	@OneToMany(mappedBy="profileGroup", cascade =CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="profileGroup", cascade =CascadeType.ALL)
 	private List<Social> socials;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
