@@ -50,10 +50,6 @@ public class User {
 	@OneToOne(mappedBy="user",cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	private ProfileUser pflUser;
 	
-	@OneToMany(mappedBy="userCreator")
-	@JsonIgnore
-	private List<ProfileGroup> profileGroups;
-	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name ="authority_user", joinColumns= @JoinColumn(name="fk_user"),
 	inverseJoinColumns=@JoinColumn(name="fk_authority"))
@@ -93,12 +89,6 @@ public class User {
 		this.enabled = enabled;
 	}
 	
-	public List<ProfileGroup> getProfileGroups() {
-		return profileGroups;
-	}
-	public void setProfileGroups(List<ProfileGroup> profileGroups) {
-		this.profileGroups = profileGroups;
-	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -22,7 +22,7 @@ public class ProfileGroupService {
 		return profileGroupRepository.save(profileGroupReturned);
 	}
 
-	private ProfileGroup findProfileGroupById(Long id) {
+	public ProfileGroup findProfileGroupById(Long id) {
 		ProfileGroup profileGroupReturned = profileGroupRepository.getOne(id);
 		if (profileGroupReturned == null) {
 			throw new EmptyResultDataAccessException(1);
@@ -40,5 +40,6 @@ public class ProfileGroupService {
 		
 		profileGroupRepository.save(profileGroupReturned);
 	}
+
 	
 }

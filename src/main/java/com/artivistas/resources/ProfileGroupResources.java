@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.artivistas.event.ResourceCreatedEvent;
 import com.artivistas.model.ProfileGroup;
 import com.artivistas.repository.ProfileGroupRepository;
+import com.artivistas.repository.filter.ProfileGroupFilter;
 import com.artivistas.service.ProfileGroupService;
 
 @RestController
@@ -37,10 +39,9 @@ public class ProfileGroupResources {
 	private ApplicationEventPublisher publisher;
 
 	@GetMapping
-	public ResponseEntity<?> listAll(){
-		List<ProfileGroup> profileGroupsReturned = profileGroupRepository.findAll();
+	public List<ProfileGroup> search(ProfileGroupFilter profileGroupFilter){
 		
-		return !profileGroupsReturned.isEmpty() ? ResponseEntity.ok(profileGroupsReturned) : ResponseEntity.noContent().build();
+		return profileGroupRepository.filter(profileGroupFilter);
 	}
 	
 	@PostMapping
@@ -62,10 +63,17 @@ public class ProfileGroupResources {
 	}
 	
 	@PutMapping("/{id}/active")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@ResponseStatus(HttpStatus.OK)
 	public void updatePropertyActive(@PathVariable Long id, Boolean active, HttpServletResponse response) {
 		
 		profileGroupService.updatePropertyActive(id, active);
+		
+	}
+	
+	@DeleteMapping("/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void delete(@PathVariable Long id) {
+		profileGroupRepository.deleteById(id);
 		
 	}
 	
