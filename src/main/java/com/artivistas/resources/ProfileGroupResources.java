@@ -1,12 +1,12 @@
 package com.artivistas.resources;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,9 +39,9 @@ public class ProfileGroupResources {
 	private ApplicationEventPublisher publisher;
 
 	@GetMapping
-	public List<ProfileGroup> search(ProfileGroupFilter profileGroupFilter){
+	public Page<ProfileGroup> search(ProfileGroupFilter profileGroupFilter, Pageable pageable){
 		
-		return profileGroupRepository.filter(profileGroupFilter);
+		return profileGroupRepository.filter(profileGroupFilter, pageable);
 	}
 	
 	@PostMapping
