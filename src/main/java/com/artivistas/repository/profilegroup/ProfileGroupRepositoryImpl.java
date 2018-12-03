@@ -82,11 +82,8 @@ public class ProfileGroupRepositoryImpl implements ProfileGroupRepositoryQuery{
 
 	private void addRestrictionsPage(TypedQuery<ProfileGroup> query, Pageable pageable) {
 		int atualPage = pageable.getPageNumber();
-		System.out.println(atualPage);
 		int totalRegistryPage = pageable.getPageSize();
-		System.out.println(totalRegistryPage);
 		int firstRegistryPage = atualPage * totalRegistryPage;
-		System.out.println(firstRegistryPage);
 		
 		query.setFirstResult(firstRegistryPage);
 		query.setMaxResults(totalRegistryPage);
