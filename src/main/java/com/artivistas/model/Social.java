@@ -1,5 +1,7 @@
 package com.artivistas.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,12 +11,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class Social {
+@Table(name="social")
+public class Social implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,9 +31,9 @@ public class Social {
 	@Column(name="name", length=20)
 	private SocialName name;
 	
+	@NotNull
 	@ManyToOne
-	@JoinColumn(name="fk_profile_group")
-	@JsonManagedReference
+	@JoinColumn(name="fk_profile_group", nullable=false)
 	private ProfileGroup profileGroup;
 	
 	@NotNull
@@ -55,6 +62,15 @@ public class Social {
 
 	public void setLink(String link) {
 		this.link = link;
+	}
+
+
+	public ProfileGroup getProfileGroup() {
+		return profileGroup;
+	}
+
+	public void setProfileGroup(ProfileGroup profileGroup) {
+		this.profileGroup = profileGroup;
 	}
 
 	@Override

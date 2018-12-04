@@ -21,7 +21,7 @@ public class ProfileUserService {
 	}
 
 	private ProfileUser findprofileUserById(Long id) {
-		ProfileUser profileUserReturned = profileUserRepository.findById(id).orElse(null);
+		ProfileUser profileUserReturned = profileUserRepository.findOne(id);
 		if (profileUserReturned == null) {
 			throw new EmptyResultDataAccessException(1);
 		}else

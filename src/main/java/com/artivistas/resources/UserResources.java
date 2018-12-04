@@ -55,7 +55,7 @@ public class UserResources {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<User> findById(@PathVariable Long id){
-		User userReturned = userRepository.findById(id).orElse(null);
+		User userReturned = userRepository.findOne(id);
 		
 		return userReturned != null ? ResponseEntity.ok(userReturned) : ResponseEntity.notFound().build();
 	}
@@ -63,7 +63,7 @@ public class UserResources {
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deletePerson(@PathVariable Long id) {
-		userRepository.deleteById(id);
+		userRepository.delete(id);
 	}
 	
 	@PutMapping("/{id}")

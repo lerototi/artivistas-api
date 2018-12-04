@@ -16,7 +16,7 @@ import com.artivistas.repository.ProfileUserRepository;
 import com.artivistas.service.ProfileUserService;
 
 @RestController
-@RequestMapping("profile-users")
+@RequestMapping("/profile-users")
 public class ProfileResources {
 
 	
@@ -34,7 +34,7 @@ public class ProfileResources {
 	
 	@GetMapping("/{id}")
 	private ResponseEntity<ProfileUser> findById(@PathVariable Long id){
-		ProfileUser profileUser = profileUserRepository.findById(id).orElse(null);
+		ProfileUser profileUser = profileUserRepository.findOne(id);
 		
 		return profileUser != null ? ResponseEntity.ok(profileUser) : ResponseEntity.notFound().build();
 	}

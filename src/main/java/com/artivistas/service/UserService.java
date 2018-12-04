@@ -29,7 +29,7 @@ public class UserService {
 	}
 	
 	private User findByUserId(Long id) {
-		User userReturned = userRepository.findById(id).orElse(null);
+		User userReturned = userRepository.findOne(id);
 		if (userReturned == null) {
 			throw new EmptyResultDataAccessException(1);
 		}else

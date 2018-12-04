@@ -1,14 +1,16 @@
 package com.artivistas.resources;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,10 +23,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.artivistas.event.ResourceCreatedEvent;
 import com.artivistas.model.ProfileGroup;
 import com.artivistas.repository.ProfileGroupRepository;
+import com.artivistas.repository.filter.ProfileGroupFilter;
 import com.artivistas.service.ProfileGroupService;
 
 @RestController
-@RequestMapping("profile-groups")
+@RequestMapping("/profile-groups")
+@CrossOrigin
 public class ProfileGroupResources {
 	
 	@Autowired
@@ -37,10 +41,9 @@ public class ProfileGroupResources {
 	private ApplicationEventPublisher publisher;
 
 	@GetMapping
-	public ResponseEntity<?> listAll(){
-		List<ProfileGroup> profileGroupsReturned = profileGroupRepository.findAll();
+	public Page<ProfileGroup> search(ProfileGroupFilter profileGroupFilter, Pageable pageable){
 		
-		return !profileGroupsReturned.isEmpty() ? ResponseEntity.ok(profileGroupsReturned) : ResponseEntity.noContent().build();
+		return profileGroupRepository.filter(profileGroupFilter, pageable);
 	}
 	
 	@PostMapping
@@ -62,10 +65,17 @@ public class ProfileGroupResources {
 	}
 	
 	@PutMapping("/{id}/active")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@ResponseStatus(HttpStatus.OK)
 	public void updatePropertyActive(@PathVariable Long id, Boolean active, HttpServletResponse response) {
 		
 		profileGroupService.updatePropertyActive(id, active);
+		
+	}
+	
+	@DeleteMapping("/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void delete(@PathVariable Long id) {
+		profileGroupRepository.delete(id);
 		
 	}
 	

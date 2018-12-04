@@ -1,5 +1,6 @@
 package com.artivistas.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,11 +19,14 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="profile_group")
-public class ProfileGroup {
+public class ProfileGroup implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,27 +49,29 @@ public class ProfileGroup {
 	@NotNull
 	private boolean active;
 	
-	/*@OneToOne
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="fk_user_creator")
+	private User userCreator;
+	
+	@NotNull
+	@OneToOne
 	@JoinColumn(name = "fk_city")
 	private City city;
 	
+	/*
 	@OneToMany(mappedBy="profileGroup", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@JsonBackReference
 	private List<Member> members;
-	*/
 	
 	@OneToMany(mappedBy="profileGroup", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@JsonBackReference
 	private List<Front> fronts;
-	
+	*/
 	
 	@OneToMany(mappedBy="profileGroup", cascade =CascadeType.ALL, fetch=FetchType.LAZY)
 	private List<Social> socials;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="fk_user_creator")
 	
-	private User userCreator;
 
 	public Long getId() {
 		return id;
@@ -123,6 +129,17 @@ public class ProfileGroup {
 	public void setRegistered(LocalDate registered) {
 		this.registered = registered;
 	}
+	
+
+
+	public City getCity() {
+		return city;
+	}
+
+	public void setCity(City city) {
+		this.city = city;
+	}
+
 
 
 	@Override
@@ -131,14 +148,6 @@ public class ProfileGroup {
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
-	}
-
-	public List<Social> getSocials() {
-		return socials;
-	}
-
-	public void setSocials(List<Social> socials) {
-		this.socials = socials;
 	}
 
 	@Override

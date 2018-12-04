@@ -66,11 +66,11 @@ INSERT INTO city (name, fk_country) values('Tocantins',1);
 
 
 INSERT INTO profile_group (name, description, founded, registered, active, fk_city, fk_user_creator) 
-	VALUES('Calango Careta', 'Cadê? cadê? Nós somos a Orquestra Camaleônica do Calango Careta!!!!!!!!', '2015-04-12 00:00:00' ,SYSDATE(), true ,7,3);
+	VALUES('Calango Careta', 'Cadê? cadê? Nós somos a Orquestra Camaleônica do Calango Careta!!!!!!!!', '2015-04-12 00:00:00' ,'2018-12-02 00:00:00', true ,7,3);
 INSERT INTO profile_group (name, description, founded, registered, active ,fk_city, fk_user_creator) 
-	VALUES('Tropicaos', '', '2018-01-20 00:00:00' ,SYSDATE() + 1, true ,7,1);
+	VALUES('Tropicaos', '', '2018-01-20 00:00:00' , '2018-12-02 00:00:00', true ,7,1);
 INSERT INTO profile_group (name, description, founded, registered, active, fk_city, fk_user_creator) 
-	VALUES('Capivara Brass Band', '', '2016-08-24 00:00:00' ,SYSDATE() + 2, false,7,2);
+	VALUES('Capivara Brass Band', '', '2016-08-24 00:00:00' ,'2018-12-01 00:00:00', false,7,2);
 
 
 
