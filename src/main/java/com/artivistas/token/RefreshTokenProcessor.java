@@ -1,10 +1,10 @@
 package com.artivistas.token;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -17,9 +17,14 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
+import com.artivistas.config.property.ArtivistasApiProperty;
+
 @ControllerAdvice
 public class RefreshTokenProcessor implements ResponseBodyAdvice<OAuth2AccessToken>{
 
+	@Autowired
+	ArtivistasApiProperty artivistasApiProperty;
+	
 	@Override
 	public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
 		// TODO Auto-generated method stub
@@ -53,7 +58,7 @@ public class RefreshTokenProcessor implements ResponseBodyAdvice<OAuth2AccessTok
 
 		Cookie refreshTokenCookie = new Cookie("refreshToken", refreshToken);
 		refreshTokenCookie.setHttpOnly(true);
-		refreshTokenCookie.setSecure(true); //TODO: Mudar para true em produção
+		refreshTokenCookie.setSecure(artivistasApiProperty.getSecurity().isEnableHttps()); //TODO: Mudar para true em produção
 		refreshTokenCookie.setPath(req.getContextPath() + "/oauth/token");
 		refreshTokenCookie.setMaxAge(2592000);
 		resp.addCookie(refreshTokenCookie);
