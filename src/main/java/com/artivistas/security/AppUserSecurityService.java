@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.artivistas.model.User;
 import com.artivistas.repository.UserRepository;
+import com.artivistas.security.util.UserSystem;
 
 @Service
 public class AppUserSecurityService implements UserDetailsService{
@@ -30,7 +31,7 @@ public class AppUserSecurityService implements UserDetailsService{
 		User user = userOptional.orElseThrow(() -> new UsernameNotFoundException("Usuário e/ou senha não conferem"));
 		
 		
-		return new org.springframework.security.core.userdetails.User(mail, user.getPassword(), getAuthority(user));
+		return new UserSystem(user, getAuthority(user));
 	}
 
 	private Collection<? extends GrantedAuthority> getAuthority(User user) {
